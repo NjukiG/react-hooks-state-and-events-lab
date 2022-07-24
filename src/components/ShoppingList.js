@@ -6,17 +6,16 @@ function ShoppingList({ items }) {
   const [selectedCategory, setSelectedCategory] = useState("All")
 
   function handleChange(event){
-    if(event.target.value === "All"){
-      setSelectedCategory(items)
-    }else if(event.target.value === "Produce"){
-      setSelectedCategory(items[1])
-    }else if(event.target.value === "Dairy"){
-      setSelectedCategory(items[2])
-    }else{
-      setSelectedCategory(items[3])
-    }
+    setSelectedCategory(event.target.value);
 
   }
+
+
+  const displaySelectedItems = items.filter((item) => {
+    if (selectedCategory === "All") return true;
+
+    return item.category === selectedCategory;
+  });
 
   // I didnt finish up the above function. Got tired and the filter method 
   // just couldn't click in my mind. 
@@ -32,7 +31,7 @@ function ShoppingList({ items }) {
         </select>
       </div>
       <ul className="Items">
-        {items.map((item) => (
+        {displaySelectedItems.map((item) => (
           <Item key={item.id} name={item.name} category={item.category} />
         ))}
       </ul>
